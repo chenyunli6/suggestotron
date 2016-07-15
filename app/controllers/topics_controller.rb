@@ -5,7 +5,10 @@ class TopicsController < ApplicationController
   # GET /topics.json
   def index
     #@topics = Topic.all
-    @topics = Topic.orderTopics
+    @topics = Topic.all.sort {|a,b| b.votes.count <=> a.votes.count}
+    #@topics = Topic.joins(:votes).group(:id).order("count(*) desc")
+    #@topics =  Topic.joins(:votes).group("topics.id").order("count(topics.id) DESC")
+    #@topics = Topic.orderTopics
   end
 
   # GET /topics/1
